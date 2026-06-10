@@ -2,7 +2,7 @@ import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
 
 class Helpers {
-  static localhost = "http://localhost:5000";
+  static localhost = "https://quizly-backend-8di5.onrender.com/api/";
   static server = "https://api.clockin.services";
   static basePath = `${this.localhost}`;
   static apiUrl = `${this.basePath}/api/`;
