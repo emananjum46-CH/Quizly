@@ -1,4 +1,10 @@
 const express = require('express');
+app.get("/", (req,res)=>{
+    res.send("Quizly Backend Running");
+});
+app.get("/api/test",(req,res)=>{
+    res.send("API working");
+});
 const cors = require('cors');
 require('dotenv').config();
 
