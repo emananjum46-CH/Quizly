@@ -1,13 +1,5 @@
 const express = require('express');
-app.get("/", (req,res)=>{
-    res.send("Quizly Backend is Live");
-});
 
-app.get("/api/test",(req,res)=>{
-    res.json({
-        message:"API connected successfully"
-    });
-});
 const cors = require('cors');
 require('dotenv').config();
 
@@ -18,6 +10,15 @@ const classesRoutes = require('./routes/classesRoute'); // Assuming you have a t
 const teacherRoutes = require('./routes/teacher'); // Assuming you have a teacher route
 const studentRoutes = require('./routes/studentRoutes'); // Assuming you have a teacher route
 const app = express();
+app.get("/", (req,res)=>{
+    res.send("Quizly Backend is Live");
+});
+
+app.get("/api/test",(req,res)=>{
+    res.json({
+        message:"API connected successfully"
+    });
+});
 app.use(cors());
 app.use(express.json());
 
