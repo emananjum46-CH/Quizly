@@ -286,7 +286,7 @@
 // }
 
 // export default QuizWindow;
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Helpers from "../../Config/Helpers";
 
@@ -299,6 +299,10 @@ function QuizWindow() {
   const [submissionResult, setSubmissionResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [violationCount, setViolationCount] = useState(0);
+const tabWarningShown = useRef(false);
+const keyWarningShown = useRef(false);
+const rightClickWarningShown = useRef(false);
+const selectWarningShown = useRef(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   
   // State for per-question timer
@@ -328,36 +332,146 @@ function QuizWindow() {
 
   useEffect(() => {
     const handleContextMenu = (e) => {
-      e.preventDefault();
-      Helpers.toast("warning", "Right-click is disabled during the quiz");
-    };
+
+    e.preventDefault();
+
+
+    if (rightClickWarningShown.current) {
+        return;
+    }
+
+
+    rightClickWarningShown.current = true;
+
+
+    Helpers.toast(
+        "warning",
+        "Right-click is disabled during the quiz"
+    );
+
+
+    setTimeout(() => {
+        rightClickWarningShown.current = false;
+    }, 2000);
+
+};
 
     const handleKeyDown = (e) => {
-      if (e.ctrlKey || e.metaKey || (e.keyCode >= 112 && e.keyCode <= 123)) {
+
+
+    if (
+        e.ctrlKey ||
+        e.metaKey ||
+        (e.keyCode >= 112 && e.keyCode <= 123)
+    ) {
+
         e.preventDefault();
-        Helpers.toast("warning", "Keyboard shortcuts are disabled");
-      }
-    };
+
+
+        if (keyWarningShown.current) {
+            return;
+        }
+
+
+        keyWarningShown.current = true;
+
+
+        Helpers.toast(
+            "warning",
+            "Keyboard shortcuts are disabled"
+        );
+
+
+        setTimeout(() => {
+
+            keyWarningShown.current = false;
+
+        }, 2000);
+
+    }
+
+};
 
     const handleSelectStart = (e) => {
-      e.preventDefault();
-      Helpers.toast("warning", "Text selection is disabled");
-    };
 
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        setViolationCount((prev) => {
-          const newCount = prev + 1;
-          Helpers.toast("warning", `Tab switching detected! (${newCount}/3)`);
-          if (newCount >= 3) {
+    e.preventDefault();
+
+
+    if (selectWarningShown.current) {
+        return;
+    }
+
+
+    selectWarningShown.current = true;
+
+
+    Helpers.toast(
+        "warning",
+        "Text selection is disabled"
+    );
+
+
+    setTimeout(() => {
+
+        selectWarningShown.current = false;
+
+    }, 2000);
+
+};
+
+  const handleVisibilityChange = () => {
+
+
+    if (!document.hidden) {
+        return;
+    }
+
+
+    if (tabWarningShown.current) {
+        return;
+    }
+
+
+    tabWarningShown.current = true;
+
+
+    setViolationCount((prev) => {
+
+        const newCount = prev + 1;
+
+
+        Helpers.toast(
+            "error",
+            `Tab switching detected! (${newCount}/3)`
+        );
+
+
+        if (newCount >= 3) {
+
+            Helpers.toast(
+                "warning",
+                "Quiz submitted due to multiple violations"
+            );
+
+
             handleSubmit();
-            Helpers.toast("warning", "Quiz submitted due to multiple violations");
-          }
-          return newCount;
-        });
-      }
-    };
 
+        }
+
+
+        return newCount;
+
+    });
+
+
+    setTimeout(() => {
+
+        tabWarningShown.current = false;
+
+    }, 2000);
+
+
+};
     const enterFullscreen = () => {
       const elem = document.documentElement;
       if (elem.requestFullscreen) {

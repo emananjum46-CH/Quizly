@@ -63,6 +63,24 @@ class Helpers {
         }
     ]
 });
+static toast(type, message) {
+
+    if(type === "success") {
+        this.Toast.success(message);
+    }
+
+    else if(type === "warning") {
+        this.Toast.open({
+            type: "warning",
+            message: message
+        });
+    }
+
+    else {
+        this.Toast.error(message);
+    }
+
+}
 
   static toggleCSS() {
     const path = window.location.pathname;
