@@ -9,6 +9,7 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
   port: process.env.DB_PORT || 3306,
   waitForConnections: true,
+      timezone: "+05:00",
   connectionLimit: 5,
   queueLimit: 0
 });

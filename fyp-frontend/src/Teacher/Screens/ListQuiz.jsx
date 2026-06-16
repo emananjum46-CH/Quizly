@@ -98,6 +98,7 @@ function ListQuiz() {
     
     const date = new Date(dateTimeString);
     return date.toLocaleString('en-US', {
+        timeZone: "Asia/Karachi",
       month: 'short',
       day: 'numeric',
       year: 'numeric',
