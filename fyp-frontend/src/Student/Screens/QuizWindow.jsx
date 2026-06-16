@@ -348,10 +348,10 @@ function QuizWindow() {
       if (document.hidden) {
         setViolationCount((prev) => {
           const newCount = prev + 1;
-          Helpers.toast("error", `Tab switching detected! (${newCount}/3)`);
+          Helpers.toast("warning", `Tab switching detected! (${newCount}/3)`);
           if (newCount >= 3) {
             handleSubmit();
-            Helpers.toast("error", "Quiz submitted due to multiple violations");
+            Helpers.toast("warning", "Quiz submitted due to multiple violations");
           }
           return newCount;
         });

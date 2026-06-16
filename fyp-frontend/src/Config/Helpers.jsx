@@ -49,17 +49,20 @@ class Helpers {
     }
   };
 
-  static toast = (type, message) => {
-    const notyf = new Notyf();
-    notyf.open({
-      message: message,
-      type: type,
-      position: { x: "right", y: "top" },
-      ripple: true,
-      dismissible: true,
-      duration: 2000,
-    });
-  };
+ static Toast = new Notyf({
+    duration: 3000,
+    position: {
+        x: "right",
+        y: "top",
+    },
+    types: [
+        {
+            type: "warning",
+            background: "orange",
+            icon: false
+        }
+    ]
+});
 
   static toggleCSS() {
     const path = window.location.pathname;
