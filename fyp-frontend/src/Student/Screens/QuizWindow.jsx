@@ -290,6 +290,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Helpers from "../../Config/Helpers";
 
+
 function QuizWindow() {
   const { quizId } = useParams();
   const [quizData, setQuizData] = useState(null);

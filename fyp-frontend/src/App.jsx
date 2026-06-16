@@ -13,6 +13,7 @@ import Result from "./Student/Screens/Result";
 import Signup from "./Auth/Signup";
 import QuizWindow from "./Student/Screens/QuizWindow";
 
+
 function App() {
   return (
     <Router>
@@ -36,7 +37,7 @@ function App() {
             <Route path="/student/dashboard" element={<StudentDashboard />} />
             <Route path="/student/result" element={<Result />} />
             <Route path="/quiz/:quizId" element={<QuizWindow />} />
-            <Route path="/quiz/:id" element={<Quiz />} />
+            <Route path="/quiz/:id" element={<QuizWindow />} />
           </Routes>
         </div>
       </div>
