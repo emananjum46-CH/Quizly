@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../Components/Sidebar";
+import Helpers from "../../Config/Helpers";
 
 function NewQuiz() {
   const [autoQuiz, setAutoQuiz] = useState(true);
@@ -13,7 +14,7 @@ function NewQuiz() {
     // formData.append("class_id", 1); // 👈 Add class ID from state
 
     try {
-      const res = await fetch("http://localhost:5000/api/quizzes/auto-create", {
+      const res = await fetch(`${Helpers.apiUrl}/quizzes/auto-create`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // 👈 Add auth token
@@ -117,7 +118,7 @@ function NewQuiz() {
     console.log("Payload to be sent:", payload); // Log the payload for debugging
 
     try {
-      const res = await fetch("http://localhost:5000/api/create-quiz", {
+      const res = await fetch(`${Helpers.apiUrl}/create-quiz`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
