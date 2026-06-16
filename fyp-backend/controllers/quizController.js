@@ -87,6 +87,8 @@ const pool = require('../config/db');
 
 exports.createAutoQuiz = async (req, res) => {
   const connection = await pool.getConnection();
+  console.log("QUIZ BODY:", req.body);
+console.log("USER:", req.user);
   try {
     await connection.beginTransaction();
     const { created_by } = req.body;
