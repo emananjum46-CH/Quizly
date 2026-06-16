@@ -8,7 +8,7 @@ function NewQuiz() {
     const file = e.target.files[0];
     const formData = new FormData();
     const user = JSON.parse(localStorage.getItem("user"));
-    const userId = user.id; // 👈 Get user ID from local storage
+    const userId = user.id || user.userId;// 👈 Get user ID from local storage
     formData.append("created_by", userId); // 👈 Add created_by to form data
     formData.append("file", file);
     // formData.append("class_id", 1); // 👈 Add class ID from state
@@ -114,14 +114,18 @@ function NewQuiz() {
       created_by: userId, // You can replace with actual user ID
       // class_id: 1, // Replace with actual class ID
     };
+    console.log("QUIZ PAYLOAD:", payload);
 
     console.log("Payload to be sent:", payload); // Log the payload for debugging
 
     try {
+      console.log("API URL:", `${Helpers.apiUrl}/create-quiz`);
+console.log("Payload:", payload);
       const res = await fetch(`${Helpers.apiUrl}/create-quiz`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+         
         },
         body: JSON.stringify(payload),
       });
