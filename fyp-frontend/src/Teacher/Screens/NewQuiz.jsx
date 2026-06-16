@@ -14,7 +14,7 @@ function NewQuiz() {
     // formData.append("class_id", 1); // 👈 Add class ID from state
 
     try {
-      const res = await fetch(`${Helpers.apiUrl}/quizzes/auto-create`, {
+      const res = await fetch(`${Helpers.apiUrl}quizzes/auto-create`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // 👈 Add auth token
@@ -22,7 +22,10 @@ function NewQuiz() {
         body: formData,
       });
 
-      const data = await res.json();
+     const text = await res.text();
+console.log("SERVER RESPONSE:", text);
+
+const data = JSON.parse(text);
       if (data.success) {
         alert("Quiz auto-generated successfully!");
         setQuiz((prev) => ({ ...prev, ...data.quiz }));
@@ -119,9 +122,9 @@ function NewQuiz() {
     console.log("Payload to be sent:", payload); // Log the payload for debugging
 
     try {
-      console.log("API URL:", `${Helpers.apiUrl}/create-quiz`);
+      console.log("API URL:", `${Helpers.apiUrl}create-quiz`);
 console.log("Payload:", payload);
-      const res = await fetch(`${Helpers.apiUrl}/create-quiz`, {
+      const res = await fetch(`${Helpers.apiUrl}create-quiz`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
