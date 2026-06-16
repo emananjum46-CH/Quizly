@@ -4,6 +4,7 @@ const quizController = require('../controllers/quizController');
 const upload = require('../config/multer');
 const OpenAIService = require('../services/openaiService');
 const pool = require("../config/db");
+const { verifyToken } = require('../middleware/authMiddleware');
 
 // Get quiz questions with options (✅ includes time_limit now)
 router.get("/:quizId", async (req, res) => {
@@ -197,7 +198,9 @@ router.get('/results/:studentId', async (req, res) => {
 
 // Auto quiz creation from file (unchanged)
 router.post('/auto-create',
+  verifyToken,
   upload.single('file'),
+
   quizController.createAutoQuiz
 );
 // Get all quizzes

@@ -120,7 +120,7 @@ const inviteTeacher = async (req, res) => {
     });
 
     // Email content
-    const inviteLink = `http://localhost:5173/register/teacher?token=${token}`;
+  const inviteLink = `https://quizly-git-main-quizly-team.vercel.app/register/teacher?token=${token}`;
     
     const mailOptions = {
       from: `"School Portal" <${process.env.EMAIL_USER}>`,
