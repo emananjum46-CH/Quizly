@@ -77,6 +77,8 @@ console.log("ROLE FROM DB:", user[0].role);
 
 
 const inviteTeacher = async (req, res) => {
+  console.log("INVITE API CALLED");
+console.log("BODY:", req.body);
   const { email } = req.body;
 
   if (!email) {
@@ -182,7 +184,10 @@ transporter.verify((error, success) => {
         </div>
       `
     };
-
+console.log(
+"Trying to send email to:",
+email
+);
     // Send email
     // Send email
 const info = await transporter.sendMail(mailOptions);
@@ -200,28 +205,21 @@ res.status(200).json({
 
 
 } 
-catch (error) {
+catch(error){
 
-    console.log("========= EMAIL ERROR =========");
+console.log("INVITE FAILED");
+console.log(error);
 
-    console.log("Message:", error.message);
+res.status(500).json({
 
-    console.log("Code:", error.code);
+success:false,
 
-    console.log("Command:", error.command);
+message:"Failed to send invitation",
 
-    console.log("===============================");
+error:error.message
 
+});
 
-    res.status(500).json({
-
-        success:false,
-
-        message:"Failed to send invitation",
-
-        error:error.message
-
-    });
 }
 };
 
