@@ -1,7 +1,9 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { findUserByEmail, createUser } = require('../models/userModel');
-const nodemailer = require('nodemailer');
+const { Resend } = require("resend");
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const pool = require('../config/db'); // your DB connection
 // Register a new user (student)
@@ -113,31 +115,7 @@ console.log("BODY:", req.body);
     );
 
     // Configure transporter
-  const transporter = nodemailer.createTransport({
-
-    host: "smtp.gmail.com",
-
-    port: 587,
-
-    secure: false,
-
-    requireTLS: true,
-
-    auth: {
-
-        user: process.env.EMAIL_USER,
-
-        pass: process.env.EMAIL_PASS
-
-    },
-
-    connectionTimeout: 30000,
-
-    greetingTimeout: 30000,
-
-    socketTimeout: 30000
-
-});
+  
 transporter.verify((error, success) => {
 
     if(error){
@@ -186,13 +164,7 @@ transporter.verify((error, success) => {
         </div>
       `
     };
-console.log(
-"Trying to send email to:",
-email
-);
-    // Send email
-    // Send email
-const info = await transporter.sendMail(mailOptions);
+
 
 console.log(
     "Email sent successfully:",
