@@ -113,7 +113,11 @@ const inviteTeacher = async (req, res) => {
     // Configure transporter
   const transporter = nodemailer.createTransport({
 
-    service: "gmail",
+    host: "smtp.gmail.com",
+
+    port: 465,
+
+    secure: true,
 
     auth: {
 
@@ -121,7 +125,9 @@ const inviteTeacher = async (req, res) => {
 
         pass: process.env.EMAIL_PASS
 
-    }
+    },
+
+    connectionTimeout: 10000
 
 });
 
