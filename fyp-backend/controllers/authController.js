@@ -121,6 +121,8 @@ console.log("BODY:", req.body);
 
     secure: false,
 
+    requireTLS: true,
+
     auth: {
 
         user: process.env.EMAIL_USER,
@@ -129,11 +131,11 @@ console.log("BODY:", req.body);
 
     },
 
-    tls: {
+    connectionTimeout: 30000,
 
-        rejectUnauthorized: false
+    greetingTimeout: 30000,
 
-    }
+    socketTimeout: 30000
 
 });
 transporter.verify((error, success) => {
@@ -161,7 +163,7 @@ transporter.verify((error, success) => {
   const inviteLink = `https://quizly-git-main-quizly-team.vercel.app/register/teacher?token=${token}`;
     
     const mailOptions = {
-      from: `"School Portal" <${process.env.EMAIL_USER}>`,
+      from: `"Quizly" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: 'Complete Your Teacher Registration',
       html: `
