@@ -116,26 +116,7 @@ console.log("BODY:", req.body);
 
     // Configure transporter
   
-transporter.verify((error, success) => {
 
-    if(error){
-
-        console.log(
-        "SMTP connection failed:",
-        error.message
-        );
-
-    }
-
-    else{
-
-        console.log(
-        "SMTP server ready"
-        );
-
-    }
-
-});
 
     // Email content
   const inviteLink = `https://quizly-git-main-quizly-team.vercel.app/register/teacher?token=${token}`;
