@@ -140,37 +140,53 @@ transporter.verify((error, success) => {
     // Email content
   const inviteLink = `https://quizly-git-main-quizly-team.vercel.app/register/teacher?token=${token}`;
     
-    const mailOptions = {
-      from: `"Quizly" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: 'Complete Your Teacher Registration',
-      html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px;">
-          <h2 style="color: #2563eb;">Teacher Invitation</h2>
-          <p>You've been invited to join as a teacher!</p>
-          <p>Click the link below to complete your registration:</p>
-          <a href="${inviteLink}" 
-             style="display: inline-block; 
-                    padding: 10px 20px; 
-                    background-color: #2563eb; 
-                    color: white; 
-                    text-decoration: none; 
-                    border-radius: 5px;">
-            Complete Registration
-          </a>
-          <p style="margin-top: 20px; color: #666;">
-            <em>This link expires in 1 hour</em>
-          </p>
+    console.log(
+"Trying to send email to:",
+email
+);
+
+
+const info = await resend.emails.send({
+
+    from: "Quizly <onboarding@resend.dev>",
+
+    to: email,
+
+    subject: "Complete Your Teacher Registration",
+
+    html: `
+        <div style="font-family: Arial, sans-serif; padding:20px;">
+
+        <h2 style="color:#2563eb;">
+        Teacher Invitation
+        </h2>
+
+        <p>
+        You've been invited to join Quizly as a teacher!
+        </p>
+
+        <p>
+        Click below to complete your registration:
+        </p>
+
+        <a href="${inviteLink}">
+        Complete Registration
+        </a>
+
+        <p>
+        This link expires in 1 hour.
+        </p>
+
         </div>
-      `
-    };
+    `
+
+});
 
 
 console.log(
-    "Email sent successfully:",
-    info.messageId
+"Email sent successfully:",
+info
 );
-
 
 res.status(200).json({
     success: true,
