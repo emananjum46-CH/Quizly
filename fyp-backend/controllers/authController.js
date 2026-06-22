@@ -111,13 +111,19 @@ const inviteTeacher = async (req, res) => {
     );
 
     // Configure transporter
-    const transporter = nodemailer.createTransport({
-      service: 'Gmail',
-      auth: {
+  const transporter = nodemailer.createTransport({
+
+    service: "gmail",
+
+    auth: {
+
         user: process.env.EMAIL_USER,
+
         pass: process.env.EMAIL_PASS
-      }
-    });
+
+    }
+
+});
 
     // Email content
   const inviteLink = `https://quizly-git-main-quizly-team.vercel.app/register/teacher?token=${token}`;
@@ -149,16 +155,21 @@ const inviteTeacher = async (req, res) => {
 
     // Send email
     // Send email
-try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent:', info.messageId);
-} 
-catch (emailError) {
-    console.log(
-        "Email failed but invitation saved:",
-        emailError.message
-    );
-}
+const info = await transporter.sendMail(mailOptions);
+
+console.log(
+"Email sent successfully:",
+info.messageId
+);
+
+
+res.status(200).json({
+
+success:true,
+
+message:"Teacher invitation sent successfully"
+
+});
 
 res.status(200).json({
     success: true,
