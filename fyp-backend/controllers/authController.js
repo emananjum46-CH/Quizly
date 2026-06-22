@@ -115,9 +115,9 @@ const inviteTeacher = async (req, res) => {
 
     host: "smtp.gmail.com",
 
-    port: 465,
+    port: 587,
 
-    secure: true,
+    secure: false,
 
     auth: {
 
@@ -127,7 +127,31 @@ const inviteTeacher = async (req, res) => {
 
     },
 
-    connectionTimeout: 10000
+    tls: {
+
+        rejectUnauthorized: false
+
+    }
+
+});
+transporter.verify((error, success) => {
+
+    if(error){
+
+        console.log(
+        "SMTP connection failed:",
+        error.message
+        );
+
+    }
+
+    else{
+
+        console.log(
+        "SMTP server ready"
+        );
+
+    }
 
 });
 
@@ -175,24 +199,29 @@ res.status(200).json({
 });
 
 
-} catch (error) {
+} 
+catch (error) {
 
-    console.error(
-        "Invitation error:",
-        error
-    );
+    console.log("========= EMAIL ERROR =========");
+
+    console.log("Message:", error.message);
+
+    console.log("Code:", error.code);
+
+    console.log("Command:", error.command);
+
+    console.log("===============================");
 
 
     res.status(500).json({
 
-        success: false,
+        success:false,
 
-        message: "Failed to send invitation",
+        message:"Failed to send invitation",
 
-        error: error.message
+        error:error.message
 
     });
-
 }
 };
 
