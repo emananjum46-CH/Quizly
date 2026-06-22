@@ -158,32 +158,36 @@ const inviteTeacher = async (req, res) => {
 const info = await transporter.sendMail(mailOptions);
 
 console.log(
-"Email sent successfully:",
-info.messageId
+    "Email sent successfully:",
+    info.messageId
 );
 
 
 res.status(200).json({
-
-success:true,
-
-message:"Teacher invitation sent successfully"
-
-});
-
-res.status(200).json({
     success: true,
-    message: 'Invite created successfully'
+    message: "Teacher invitation sent successfully"
 });
 
-  } catch (error) {
-    console.error('Invitation error:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: 'Failed to send invitation',
-      error: error.message 
+
+} catch (error) {
+
+    console.error(
+        "Invitation error:",
+        error
+    );
+
+
+    res.status(500).json({
+
+        success: false,
+
+        message: "Failed to send invitation",
+
+        error: error.message
+
     });
-  }
+
+}
 };
 
 
